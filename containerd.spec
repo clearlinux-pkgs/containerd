@@ -35,7 +35,7 @@ make V=1 %{?_smp_mflags}
 rm -rf %{buildroot}
 install -d -p %{buildroot}%{_bindir}
 install -p -m 755 bin/%{name} %{buildroot}%{_bindir}
-install -p -m 755 bin/ctr %{buildroot}%{_bindir}
+install -p -m 755 bin/ctr %{buildroot}%{_bindir}/containerd-ctr
 install -p -m 755 bin/containerd-shim %{buildroot}%{_bindir}
 
 # Copy all *.go, *.s and *.proto files
@@ -50,7 +50,7 @@ done
 %files
 %defattr(-,root,root,-)
 %{_bindir}/%{name}
-%{_bindir}/ctr
+%{_bindir}/containerd-ctr
 %{_bindir}/containerd-shim
 
 %files dev
