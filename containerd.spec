@@ -1,6 +1,6 @@
 Name     : containerd
 Version  : 0.2.1
-Release  : 6
+Release  : 7
 URL      : https://github.com/docker/containerd/archive/v0.2.1.tar.gz
 Source0  : https://github.com/docker/containerd/archive/v0.2.1.tar.gz
 Summary  : Daemon to control runC.
