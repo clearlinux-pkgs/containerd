@@ -1,8 +1,8 @@
 Name     : containerd
-Version  : 0.2.2
+Version  : 0.2.4
 Release  : 12
-URL      : https://github.com/docker/containerd/archive/2e4e484237cf98ce0c5250b41a6f4ff4fc7a7bd8.tar.gz
-Source0  : https://github.com/docker/containerd/archive/2e4e484237cf98ce0c5250b41a6f4ff4fc7a7bd8.tar.gz
+URL      : https://github.com/docker/containerd/archive/2a5e70cbf65457815ee76b7e5dd2a01292d9eca8.tar.gz
+Source0  : https://github.com/docker/containerd/archive/2a5e70cbf65457815ee76b7e5dd2a01292d9eca8.tar.gz
 Summary  : Daemon to control runC.
 Group    : Development/Tools
 License  : Apache-2.0
@@ -23,7 +23,7 @@ Group: Development
 dev components for the containerd package.
 
 %prep
-%setup -q -n containerd-2e4e484237cf98ce0c5250b41a6f4ff4fc7a7bd8
+%setup -q -n containerd-2a5e70cbf65457815ee76b7e5dd2a01292d9eca8
 
 %build
 mkdir -p src/github.com/docker/
