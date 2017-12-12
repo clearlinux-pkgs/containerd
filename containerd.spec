@@ -1,16 +1,17 @@
 Name     : containerd
-Version  : 0.2.8
-Release  : 16
-URL      : https://github.com/docker/containerd/archive/9048e5e50717ea4497b757314bad98ea3763c145.tar.gz
-Source0  : https://github.com/docker/containerd/archive/9048e5e50717ea4497b757314bad98ea3763c145.tar.gz
+Version  : 0
+Release  : 18
+URL      : https://github.com/docker/containerd/archive/06b9cb35161009dcb7123345749fef02f7cea8e0.tar.gz
+Source0  : https://github.com/docker/containerd/archive/06b9cb35161009dcb7123345749fef02f7cea8e0.tar.gz
 Summary  : Daemon to control runC.
 Group    : Development/Tools
 License  : Apache-2.0
-BuildRequires : go
-BuildRequires : glibc-staticdev
+BuildRequires: btrfs-progs-dev
+BuildRequires: go
+BuildRequires: glibc-staticdev
 
-%global gopath /usr/lib/golang
-%global library_path github.com/docker/
+%global goroot /usr/lib/golang
+%global library_path github.com/containerd
 
 %description
 Containerd is a daemon to control runC, built for performance and density. Containerd leverages runC advanced features such as seccomp and user namespace support as well as checkpoint and restore for cloning and live migration of containers.
@@ -23,13 +24,15 @@ Group: Development
 dev components for the containerd package.
 
 %prep
-%setup -q -n containerd-9048e5e50717ea4497b757314bad98ea3763c145
+%setup -q -n containerd-06b9cb35161009dcb7123345749fef02f7cea8e0
 
 %build
-mkdir -p src/github.com/docker/
-ln -s $(pwd) src/github.com/docker/containerd
-export GOPATH=$(pwd):%{gopath}
+export GOPATH=/go AUTO_GOPATH=1
+mkdir -p /go/src/github.com/containerd/
+ln -s /builddir/build/BUILD/%{name}-06b9cb35161009dcb7123345749fef02f7cea8e0 /go/src/github.com/containerd/containerd
+pushd /go/src/github.com/containerd/containerd
 make V=1 %{?_smp_mflags}
+popd
 
 %install
 rm -rf %{buildroot}
@@ -39,11 +42,11 @@ install -p -m 755 bin/ctr %{buildroot}%{_bindir}/containerd-ctr
 install -p -m 755 bin/containerd-shim %{buildroot}%{_bindir}
 
 # Copy all *.go, *.s and *.proto files
-install -d -p %{buildroot}%{gopath}/src/%{library_path}/
+install -d -p %{buildroot}%{goroot}/src/%{library_path}/
 for ext in go s proto; do
 	for file in $(find . -iname "*.$ext" | grep -v "^./Godeps") ; do
-		install -d -p %{buildroot}%{gopath}/src/%{library_path}/$(dirname $file)
-		cp -pav $file %{buildroot}%{gopath}/src/%{library_path}/$file
+		install -d -p %{buildroot}%{goroot}/src/%{library_path}/$(dirname $file)
+		cp -pav $file %{buildroot}%{goroot}/src/%{library_path}/$file
 	done
 done
 
@@ -55,4 +58,4 @@ done
 
 %files dev
 %defattr(-,root,root,-)
-%{gopath}/src/%{library_path}/*
+%{goroot}/src/%{library_path}/*
