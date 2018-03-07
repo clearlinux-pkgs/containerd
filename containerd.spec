@@ -1,8 +1,8 @@
 Name     : containerd
-Version  : 0
-Release  : 19
-URL      : https://github.com/docker/containerd/archive/06b9cb35161009dcb7123345749fef02f7cea8e0.tar.gz
-Source0  : https://github.com/docker/containerd/archive/06b9cb35161009dcb7123345749fef02f7cea8e0.tar.gz
+Version  : 1.0.2
+Release  : 20
+URL      : https://github.com/containerd/containerd/archive/v1.0.2.tar.gz
+Source0  : https://github.com/containerd/containerd/archive/v1.0.2.tar.gz
 Summary  : Daemon to control runC.
 Group    : Development/Tools
 License  : Apache-2.0
@@ -24,12 +24,12 @@ Group: Development
 dev components for the containerd package.
 
 %prep
-%setup -q -n containerd-06b9cb35161009dcb7123345749fef02f7cea8e0
+%setup -q -n containerd-%{version}
 
 %build
 export GOPATH=/go AUTO_GOPATH=1
 mkdir -p /go/src/github.com/containerd/
-ln -s /builddir/build/BUILD/%{name}-06b9cb35161009dcb7123345749fef02f7cea8e0 /go/src/github.com/containerd/containerd
+ln -s /builddir/build/BUILD/%{name}-%{version} /go/src/github.com/containerd/containerd
 pushd /go/src/github.com/containerd/containerd
 make V=1 %{?_smp_mflags}
 popd
