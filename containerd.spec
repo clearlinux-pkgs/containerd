@@ -1,14 +1,15 @@
 Name     : containerd
-Version  : 1.0.2
-Release  : 23
-URL      : https://github.com/containerd/containerd/archive/v1.0.2.tar.gz
-Source0  : https://github.com/containerd/containerd/archive/v1.0.2.tar.gz
+Version  : 1.0.3
+Release  : 24
+URL      : https://github.com/containerd/containerd/archive/v1.0.3.tar.gz
+Source0  : https://github.com/containerd/containerd/archive/v1.0.3.tar.gz
 Summary  : Daemon to control runC.
 Group    : Development/Tools
 License  : Apache-2.0
 BuildRequires: btrfs-progs-dev
 BuildRequires: go
 BuildRequires: glibc-staticdev
+Patch1:    0001-Enable-passing-version-to-make.patch
 
 %global goroot /usr/lib/golang
 %global library_path github.com/containerd
@@ -25,13 +26,14 @@ dev components for the containerd package.
 
 %prep
 %setup -q -n containerd-%{version}
+%patch1 -p1
 
 %build
 export GOPATH=/go AUTO_GOPATH=1
 mkdir -p /go/src/github.com/containerd/
 ln -s /builddir/build/BUILD/%{name}-%{version} /go/src/github.com/containerd/containerd
 pushd /go/src/github.com/containerd/containerd
-make V=1 %{?_smp_mflags}
+make V=1 %{?_smp_mflags} VERSION=773c489c9c1b21a6d78b5c538cd395416ec50f88
 popd
 
 %install
