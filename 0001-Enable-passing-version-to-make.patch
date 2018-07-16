@@ -1,25 +1,27 @@
-From 39bb3168f08cfc7bdee756f1a9a02d300a45d2ae Mon Sep 17 00:00:00 2001
+From fc8f29741cbfea98aed4851b3d05ca0fa46a80e4 Mon Sep 17 00:00:00 2001
 From: William Douglas <william.douglas@intel.com>
 Date: Thu, 12 Jul 2018 19:51:09 +0000
-Subject: [PATCH 2/2] Enable passing version to make
+Subject: [PATCH] Enable passing version to make
 
 ---
- Makefile | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ Makefile | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index 9d8cf8a..a95ae92 100644
+index 9d8cf8a..9c705c7 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -5,7 +5,7 @@ ROOTDIR=$(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+@@ -5,8 +5,8 @@ ROOTDIR=$(dir $(abspath $(lastword $(MAKEFILE_LIST))))
  DESTDIR=/usr/local
  
  # Used to populate variables in version package.
 -VERSION=$(shell git describe --match 'v[0-9]*' --dirty='.m' --always)
+-REVISION=$(shell git rev-parse HEAD)$(shell if ! git diff --no-ext-diff --quiet --exit-code; then echo .m; fi)
 +VERSION ?=$(shell git describe --match 'v[0-9]*' --dirty='.m' --always)
- REVISION=$(shell git rev-parse HEAD)$(shell if ! git diff --no-ext-diff --quiet --exit-code; then echo .m; fi)
++REVISION := $(VERSION)
  
  ifneq "$(strip $(shell command -v go 2>/dev/null))" ""
+ 	GOOS ?= $(shell go env GOOS)
 -- 
 2.18.0
 
