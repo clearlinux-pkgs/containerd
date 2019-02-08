@@ -1,14 +1,19 @@
 Name     : containerd
-Version  : 1.0.3
+Version  : 1.2.2
 Release  : 25
-URL      : https://github.com/containerd/containerd/archive/v1.0.3.tar.gz
-Source0  : https://github.com/containerd/containerd/archive/v1.0.3.tar.gz
+URL      : https://github.com/containerd/containerd/archive/v1.2.2.tar.gz
+Source0  : https://github.com/containerd/containerd/archive/v1.2.2.tar.gz
+Source1  : containerd.service
 Summary  : Daemon to control runC.
 Group    : Development/Tools
 License  : Apache-2.0
 BuildRequires: btrfs-progs-dev
 BuildRequires: go
 BuildRequires: glibc-staticdev
+BuildRequires: libseccomp-dev
+Requires : cri-tools
+Requires : docker
+Requires : containerd-services = %{version}-%{release}
 Patch1:    0001-Enable-passing-version-to-make.patch
 
 %global goroot /usr/lib/golang
@@ -24,6 +29,13 @@ Group: Development
 %description dev
 dev components for the containerd package.
 
+%package services
+Summary: service components for the containerd package.
+Group: Systemd services
+
+%description services
+services components for the containerd package.
+
 %prep
 %setup -q -n containerd-%{version}
 %patch1 -p1
@@ -33,15 +45,20 @@ export GOPATH=/go AUTO_GOPATH=1
 mkdir -p /go/src/github.com/containerd/
 ln -s /builddir/build/BUILD/%{name}-%{version} /go/src/github.com/containerd/containerd
 pushd /go/src/github.com/containerd/containerd
-make V=1 %{?_smp_mflags} VERSION=773c489c9c1b21a6d78b5c538cd395416ec50f88
+make V=1 %{?_smp_mflags} VERSION=%{version}
 popd
 
 %install
 rm -rf %{buildroot}
 install -d -p %{buildroot}%{_bindir}
 install -p -m 755 bin/%{name} %{buildroot}%{_bindir}
-install -p -m 755 bin/ctr %{buildroot}%{_bindir}/containerd-ctr
+install -p -m 755 bin/ctr %{buildroot}%{_bindir}
 install -p -m 755 bin/containerd-shim %{buildroot}%{_bindir}
+install -p -m 755 bin/containerd-shim-runc-v1 %{buildroot}%{_bindir}
+install -p -m 755 bin/containerd-stress %{buildroot}%{_bindir}
+## Install service files
+mkdir -p %{buildroot}/usr/lib/systemd/system
+install -p -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/containerd.service
 
 # Copy all *.go, *.s and *.proto files
 install -d -p %{buildroot}%{goroot}/src/%{library_path}/
@@ -55,9 +72,15 @@ done
 %files
 %defattr(-,root,root,-)
 %{_bindir}/%{name}
-%{_bindir}/containerd-ctr
+%{_bindir}/ctr
 %{_bindir}/containerd-shim
+%{_bindir}/containerd-shim-runc-v1
+%{_bindir}/containerd-stress
 
 %files dev
 %defattr(-,root,root,-)
 %{goroot}/src/%{library_path}/*
+
+%files services
+%defattr(-,root,root,-)
+/usr/lib/systemd/system/containerd.service
