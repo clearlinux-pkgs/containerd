@@ -8,10 +8,10 @@ Subject: [PATCH] Enable passing version to make
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index 9d8cf8a..9c705c7 100644
+index 84250e5..664d4e7 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -5,8 +5,8 @@ ROOTDIR=$(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+@@ -20,8 +20,8 @@ ROOTDIR=$(dir $(abspath $(lastword $(MAKEFILE_LIST))))
  DESTDIR=/usr/local
  
  # Used to populate variables in version package.
@@ -19,9 +19,9 @@ index 9d8cf8a..9c705c7 100644
 -REVISION=$(shell git rev-parse HEAD)$(shell if ! git diff --no-ext-diff --quiet --exit-code; then echo .m; fi)
 +VERSION ?=$(shell git describe --match 'v[0-9]*' --dirty='.m' --always)
 +REVISION := $(VERSION)
+ PACKAGE=github.com/containerd/containerd
  
  ifneq "$(strip $(shell command -v go 2>/dev/null))" ""
- 	GOOS ?= $(shell go env GOOS)
 -- 
 2.18.0
 
