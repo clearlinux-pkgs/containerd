@@ -1,6 +1,6 @@
 Name     : containerd
 Version  : 1.2.6
-Release  : 27
+Release  : 28
 URL      : https://github.com/containerd/containerd/archive/v1.2.6.tar.gz
 Source0  : https://github.com/containerd/containerd/archive/v1.2.6.tar.gz
 Source1  : containerd.service
