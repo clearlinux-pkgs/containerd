@@ -1,8 +1,8 @@
 Name     : containerd
-Version  : 1.2.6
-Release  : 28
-URL      : https://github.com/containerd/containerd/archive/v1.2.6.tar.gz
-Source0  : https://github.com/containerd/containerd/archive/v1.2.6.tar.gz
+Version  : 1.2.9
+Release  : 29
+URL      : https://github.com/containerd/containerd/archive/v1.2.9.tar.gz
+Source0  : https://github.com/containerd/containerd/archive/v1.2.9.tar.gz
 Source1  : containerd.service
 Summary  : Daemon to control runC.
 Group    : Development/Tools
