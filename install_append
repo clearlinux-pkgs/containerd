@@ -1,0 +1,2 @@
+sed -i -e 's:local/::' containerd.service
+install -D -m 644 containerd.service %{buildroot}/usr/lib/systemd/system/containerd.service
