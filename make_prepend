@@ -1,4 +1,4 @@
-export GOPATH=/go GO111MODULES=off
-mkdir -p /go/src/github.com/containerd/
-ln -s /builddir/build/BUILD/%{name}-%{version} /go/src/github.com/containerd/containerd
-pushd /go/src/github.com/containerd/containerd
+export GOPATH=$HOME/go GO111MODULES=off
+mkdir -p $HOME/go/src/github.com/containerd/
+ln -s /builddir/build/BUILD/%{name}-%{version} $HOME/go/src/github.com/containerd/containerd
+pushd $HOME/go/src/github.com/containerd/containerd

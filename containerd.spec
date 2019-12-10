@@ -4,7 +4,7 @@
 #
 Name     : containerd
 Version  : 1.3.0
-Release  : 31
+Release  : 32
 URL      : https://github.com/containerd/containerd/archive/v1.3.0.tar.gz
 Source0  : https://github.com/containerd/containerd/archive/v1.3.0.tar.gz
 Summary  : An open and reliable container runtime
@@ -48,13 +48,14 @@ services components for the containerd package.
 
 %prep
 %setup -q -n containerd-1.3.0
+cd %{_builddir}/containerd-1.3.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1570468539
+export SOURCE_DATE_EPOCH=1576005934
 export GCC_IGNORE_WERROR=1
 export GOPROXY=file:///usr/share/goproxy
 export AR=gcc-ar
@@ -65,115 +66,115 @@ export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
 export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 ## make_prepend content
-export GOPATH=/go GO111MODULES=off
-mkdir -p /go/src/github.com/containerd/
-ln -s /builddir/build/BUILD/%{name}-%{version} /go/src/github.com/containerd/containerd
-pushd /go/src/github.com/containerd/containerd
+export GOPATH=$HOME/go GO111MODULES=off
+mkdir -p $HOME/go/src/github.com/containerd/
+ln -s /builddir/build/BUILD/%{name}-%{version} $HOME/go/src/github.com/containerd/containerd
+pushd $HOME/go/src/github.com/containerd/containerd
 ## make_prepend end
 make  %{?_smp_mflags}  V=1 REVISION="" VERSION=%{version}
 
 
 %install
-export SOURCE_DATE_EPOCH=1570468539
+export SOURCE_DATE_EPOCH=1576005934
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/containerd
-cp LICENSE %{buildroot}/usr/share/package-licenses/containerd/LICENSE
-cp vendor/github.com/BurntSushi/toml/COPYING %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_BurntSushi_toml_COPYING
-cp vendor/github.com/Microsoft/go-winio/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_Microsoft_go-winio_LICENSE
-cp vendor/github.com/Microsoft/hcsshim/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_Microsoft_hcsshim_LICENSE
-cp vendor/github.com/Microsoft/hcsshim/pkg/go-runhcs/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_Microsoft_hcsshim_pkg_go-runhcs_LICENSE
-cp vendor/github.com/beorn7/perks/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_beorn7_perks_LICENSE
-cp vendor/github.com/containerd/aufs/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_containerd_aufs_LICENSE
-cp vendor/github.com/containerd/btrfs/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_containerd_btrfs_LICENSE
-cp vendor/github.com/containerd/cgroups/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_containerd_cgroups_LICENSE
-cp vendor/github.com/containerd/console/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_containerd_console_LICENSE
-cp vendor/github.com/containerd/continuity/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_containerd_continuity_LICENSE
-cp vendor/github.com/containerd/cri/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_containerd_cri_LICENSE
-cp vendor/github.com/containerd/fifo/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_containerd_fifo_LICENSE
-cp vendor/github.com/containerd/go-cni/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_containerd_go-cni_LICENSE
-cp vendor/github.com/containerd/go-runc/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_containerd_go-runc_LICENSE
-cp vendor/github.com/containerd/ttrpc/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_containerd_ttrpc_LICENSE
-cp vendor/github.com/containerd/typeurl/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_containerd_typeurl_LICENSE
-cp vendor/github.com/containerd/zfs/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_containerd_zfs_LICENSE
-cp vendor/github.com/containernetworking/cni/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_containernetworking_cni_LICENSE
-cp vendor/github.com/containernetworking/plugins/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_containernetworking_plugins_LICENSE
-cp vendor/github.com/coreos/go-systemd/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_coreos_go-systemd_LICENSE
-cp vendor/github.com/cpuguy83/go-md2man/LICENSE.md %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_cpuguy83_go-md2man_LICENSE.md
-cp vendor/github.com/davecgh/go-spew/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_davecgh_go-spew_LICENSE
-cp vendor/github.com/docker/distribution/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_docker_distribution_LICENSE
-cp vendor/github.com/docker/docker/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_docker_docker_LICENSE
-cp vendor/github.com/docker/docker/NOTICE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_docker_docker_NOTICE
-cp vendor/github.com/docker/docker/pkg/symlink/LICENSE.APACHE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_docker_docker_pkg_symlink_LICENSE.APACHE
-cp vendor/github.com/docker/docker/pkg/symlink/LICENSE.BSD %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_docker_docker_pkg_symlink_LICENSE.BSD
-cp vendor/github.com/docker/go-events/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_docker_go-events_LICENSE
-cp vendor/github.com/docker/go-metrics/LICENSE.code %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_docker_go-metrics_LICENSE.code
-cp vendor/github.com/docker/go-metrics/LICENSE.docs %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_docker_go-metrics_LICENSE.docs
-cp vendor/github.com/docker/go-units/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_docker_go-units_LICENSE
-cp vendor/github.com/docker/spdystream/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_docker_spdystream_LICENSE
-cp vendor/github.com/docker/spdystream/LICENSE.docs %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_docker_spdystream_LICENSE.docs
-cp vendor/github.com/emicklei/go-restful/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_emicklei_go-restful_LICENSE
-cp vendor/github.com/godbus/dbus/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_godbus_dbus_LICENSE
-cp vendor/github.com/gogo/googleapis/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_gogo_googleapis_LICENSE
-cp vendor/github.com/gogo/protobuf/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_gogo_protobuf_LICENSE
-cp vendor/github.com/golang/protobuf/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_golang_protobuf_LICENSE
-cp vendor/github.com/google/go-cmp/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_google_go-cmp_LICENSE
-cp vendor/github.com/google/gofuzz/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_google_gofuzz_LICENSE
-cp vendor/github.com/google/uuid/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_google_uuid_LICENSE
-cp vendor/github.com/grpc-ecosystem/go-grpc-prometheus/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_grpc-ecosystem_go-grpc-prometheus_LICENSE
-cp vendor/github.com/hashicorp/errwrap/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_hashicorp_errwrap_LICENSE
-cp vendor/github.com/hashicorp/go-multierror/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_hashicorp_go-multierror_LICENSE
-cp vendor/github.com/hashicorp/golang-lru/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_hashicorp_golang-lru_LICENSE
-cp vendor/github.com/imdario/mergo/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_imdario_mergo_LICENSE
-cp vendor/github.com/json-iterator/go/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_json-iterator_go_LICENSE
-cp vendor/github.com/konsorten/go-windows-terminal-sequences/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_konsorten_go-windows-terminal-sequences_LICENSE
-cp vendor/github.com/matttproud/golang_protobuf_extensions/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_matttproud_golang_protobuf_extensions_LICENSE
-cp vendor/github.com/mistifyio/go-zfs/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_mistifyio_go-zfs_LICENSE
-cp vendor/github.com/modern-go/concurrent/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_modern-go_concurrent_LICENSE
-cp vendor/github.com/modern-go/reflect2/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_modern-go_reflect2_LICENSE
-cp vendor/github.com/opencontainers/go-digest/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_opencontainers_go-digest_LICENSE
-cp vendor/github.com/opencontainers/go-digest/LICENSE.docs %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_opencontainers_go-digest_LICENSE.docs
-cp vendor/github.com/opencontainers/image-spec/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_opencontainers_image-spec_LICENSE
-cp vendor/github.com/opencontainers/runc/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_opencontainers_runc_LICENSE
-cp vendor/github.com/opencontainers/runtime-spec/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_opencontainers_runtime-spec_LICENSE
-cp vendor/github.com/opencontainers/selinux/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_opencontainers_selinux_LICENSE
-cp vendor/github.com/pkg/errors/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_pkg_errors_LICENSE
-cp vendor/github.com/prometheus/client_golang/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_prometheus_client_golang_LICENSE
-cp vendor/github.com/prometheus/client_golang/NOTICE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_prometheus_client_golang_NOTICE
-cp vendor/github.com/prometheus/client_model/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_prometheus_client_model_LICENSE
-cp vendor/github.com/prometheus/common/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_prometheus_common_LICENSE
-cp vendor/github.com/prometheus/procfs/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_prometheus_procfs_LICENSE
-cp vendor/github.com/russross/blackfriday/LICENSE.txt %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_russross_blackfriday_LICENSE.txt
-cp vendor/github.com/seccomp/libseccomp-golang/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_seccomp_libseccomp-golang_LICENSE
-cp vendor/github.com/sirupsen/logrus/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_sirupsen_logrus_LICENSE
-cp vendor/github.com/syndtr/gocapability/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_syndtr_gocapability_LICENSE
-cp vendor/github.com/tchap/go-patricia/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_tchap_go-patricia_LICENSE
-cp vendor/github.com/urfave/cli/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_github.com_urfave_cli_LICENSE
-cp vendor/go.etcd.io/bbolt/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_go.etcd.io_bbolt_LICENSE
-cp vendor/go.opencensus.io/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_go.opencensus.io_LICENSE
-cp vendor/golang.org/x/crypto/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_golang.org_x_crypto_LICENSE
-cp vendor/golang.org/x/net/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_golang.org_x_net_LICENSE
-cp vendor/golang.org/x/oauth2/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_golang.org_x_oauth2_LICENSE
-cp vendor/golang.org/x/sync/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_golang.org_x_sync_LICENSE
-cp vendor/golang.org/x/sys/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_golang.org_x_sys_LICENSE
-cp vendor/golang.org/x/text/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_golang.org_x_text_LICENSE
-cp vendor/golang.org/x/time/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_golang.org_x_time_LICENSE
-cp vendor/google.golang.org/genproto/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_google.golang.org_genproto_LICENSE
-cp vendor/google.golang.org/grpc/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_google.golang.org_grpc_LICENSE
-cp vendor/gopkg.in/inf.v0/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_gopkg.in_inf.v0_LICENSE
-cp vendor/gopkg.in/yaml.v2/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_gopkg.in_yaml.v2_LICENSE
-cp vendor/gopkg.in/yaml.v2/LICENSE.libyaml %{buildroot}/usr/share/package-licenses/containerd/vendor_gopkg.in_yaml.v2_LICENSE.libyaml
-cp vendor/gopkg.in/yaml.v2/NOTICE %{buildroot}/usr/share/package-licenses/containerd/vendor_gopkg.in_yaml.v2_NOTICE
-cp vendor/gotest.tools/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_gotest.tools_LICENSE
-cp vendor/gotest.tools/internal/difflib/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_gotest.tools_internal_difflib_LICENSE
-cp vendor/k8s.io/api/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_k8s.io_api_LICENSE
-cp vendor/k8s.io/apimachinery/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_k8s.io_apimachinery_LICENSE
-cp vendor/k8s.io/apiserver/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_k8s.io_apiserver_LICENSE
-cp vendor/k8s.io/client-go/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_k8s.io_client-go_LICENSE
-cp vendor/k8s.io/cri-api/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_k8s.io_cri-api_LICENSE
-cp vendor/k8s.io/klog/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_k8s.io_klog_LICENSE
-cp vendor/k8s.io/kubernetes/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_k8s.io_kubernetes_LICENSE
-cp vendor/k8s.io/utils/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_k8s.io_utils_LICENSE
-cp vendor/sigs.k8s.io/yaml/LICENSE %{buildroot}/usr/share/package-licenses/containerd/vendor_sigs.k8s.io_yaml_LICENSE
+cp %{_builddir}/containerd-1.3.0/LICENSE %{buildroot}/usr/share/package-licenses/containerd/d3b7a70b03b43d4e7205d178100581923a0baad2
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/BurntSushi/toml/COPYING %{buildroot}/usr/share/package-licenses/containerd/f9cab757896ef6b3570e62b2df7fb63ab1a34b80
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/Microsoft/go-winio/LICENSE %{buildroot}/usr/share/package-licenses/containerd/11a8fec351554e8f6c3f4dac5a1f4049dd467ba8
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/Microsoft/hcsshim/LICENSE %{buildroot}/usr/share/package-licenses/containerd/56b820712432e458f05f883566ca8cd85dcdaad5
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/Microsoft/hcsshim/pkg/go-runhcs/LICENSE %{buildroot}/usr/share/package-licenses/containerd/7df059597099bb7dcf25d2a9aedfaf4465f72d8d
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/beorn7/perks/LICENSE %{buildroot}/usr/share/package-licenses/containerd/b2e4520feb0f9b51ad373256b94c3faf4c1e6871
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/containerd/aufs/LICENSE %{buildroot}/usr/share/package-licenses/containerd/7df059597099bb7dcf25d2a9aedfaf4465f72d8d
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/containerd/btrfs/LICENSE %{buildroot}/usr/share/package-licenses/containerd/92170cdc034b2ff819323ff670d3b7266c8bffcd
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/containerd/cgroups/LICENSE %{buildroot}/usr/share/package-licenses/containerd/7df059597099bb7dcf25d2a9aedfaf4465f72d8d
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/containerd/console/LICENSE %{buildroot}/usr/share/package-licenses/containerd/d3b7a70b03b43d4e7205d178100581923a0baad2
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/containerd/continuity/LICENSE %{buildroot}/usr/share/package-licenses/containerd/d3b7a70b03b43d4e7205d178100581923a0baad2
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/containerd/cri/LICENSE %{buildroot}/usr/share/package-licenses/containerd/92170cdc034b2ff819323ff670d3b7266c8bffcd
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/containerd/fifo/LICENSE %{buildroot}/usr/share/package-licenses/containerd/7df059597099bb7dcf25d2a9aedfaf4465f72d8d
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/containerd/go-cni/LICENSE %{buildroot}/usr/share/package-licenses/containerd/7df059597099bb7dcf25d2a9aedfaf4465f72d8d
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/containerd/go-runc/LICENSE %{buildroot}/usr/share/package-licenses/containerd/7df059597099bb7dcf25d2a9aedfaf4465f72d8d
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/containerd/ttrpc/LICENSE %{buildroot}/usr/share/package-licenses/containerd/7df059597099bb7dcf25d2a9aedfaf4465f72d8d
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/containerd/typeurl/LICENSE %{buildroot}/usr/share/package-licenses/containerd/7df059597099bb7dcf25d2a9aedfaf4465f72d8d
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/containerd/zfs/LICENSE %{buildroot}/usr/share/package-licenses/containerd/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/containernetworking/cni/LICENSE %{buildroot}/usr/share/package-licenses/containerd/669a1e53b9dd9df3474300d3d959bb85bad75945
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/containernetworking/plugins/LICENSE %{buildroot}/usr/share/package-licenses/containerd/92170cdc034b2ff819323ff670d3b7266c8bffcd
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/coreos/go-systemd/LICENSE %{buildroot}/usr/share/package-licenses/containerd/172ca3bbafe312a1cf09cfff26953db2f425c28e
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/cpuguy83/go-md2man/LICENSE.md %{buildroot}/usr/share/package-licenses/containerd/b7a606730713ac061594edab33cf941704b4a95c
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/davecgh/go-spew/LICENSE %{buildroot}/usr/share/package-licenses/containerd/d2f340a01dd48b589a70f627cf7058c585a315e4
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/docker/distribution/LICENSE %{buildroot}/usr/share/package-licenses/containerd/c700a8b9312d24bdc57570f7d6a131cf63d89016
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/docker/docker/LICENSE %{buildroot}/usr/share/package-licenses/containerd/878e7d86573d6c8ff65d2eaab294734b3f4d3d81
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/docker/docker/NOTICE %{buildroot}/usr/share/package-licenses/containerd/ea2531724c168e1e53717622d1bf302554225f2b
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/docker/docker/pkg/symlink/LICENSE.APACHE %{buildroot}/usr/share/package-licenses/containerd/a71b5152bb7c0d188273009e050644a6788d4d4c
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/docker/docker/pkg/symlink/LICENSE.BSD %{buildroot}/usr/share/package-licenses/containerd/bb8bbeae44ef2e1eb6f8fec601a6234d4c5a51f7
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/docker/go-events/LICENSE %{buildroot}/usr/share/package-licenses/containerd/8e5643a553edd1143413a2ff85104539b7dbecca
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/docker/go-metrics/LICENSE.code %{buildroot}/usr/share/package-licenses/containerd/376caa2cd54c4196280157d071524614350e7ce8
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/docker/go-metrics/LICENSE.docs %{buildroot}/usr/share/package-licenses/containerd/979fd7d5c67073b265d96f584aac3de1c419b8e2
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/docker/go-units/LICENSE %{buildroot}/usr/share/package-licenses/containerd/3110e55750143a84918d7423febc9c83a55bc28c
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/docker/spdystream/LICENSE %{buildroot}/usr/share/package-licenses/containerd/c6821d75aac4a65fae7d56a425e304beb3689c26
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/docker/spdystream/LICENSE.docs %{buildroot}/usr/share/package-licenses/containerd/979fd7d5c67073b265d96f584aac3de1c419b8e2
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/emicklei/go-restful/LICENSE %{buildroot}/usr/share/package-licenses/containerd/a8993f4a51771a0333dbbc5b1c4395a2ccaa4d9f
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/godbus/dbus/LICENSE %{buildroot}/usr/share/package-licenses/containerd/994658c265db5dbf456fa6163905cc9c0b3bda46
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/gogo/googleapis/LICENSE %{buildroot}/usr/share/package-licenses/containerd/7f8c8c31bf3ed5b6616225c00b5a960c2bbbae2f
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/gogo/protobuf/LICENSE %{buildroot}/usr/share/package-licenses/containerd/06b27345acae9303e13dde9974d2b2e318b05989
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/golang/protobuf/LICENSE %{buildroot}/usr/share/package-licenses/containerd/aa9b240f558caed367795f667629ccbca28f20b2
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/google/go-cmp/LICENSE %{buildroot}/usr/share/package-licenses/containerd/7080652cc78cd9855d39e324529a3b5f3745dcd6
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/google/gofuzz/LICENSE %{buildroot}/usr/share/package-licenses/containerd/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/google/uuid/LICENSE %{buildroot}/usr/share/package-licenses/containerd/08021ae73f58f423dd6e7b525e81cf2520f7619e
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/grpc-ecosystem/go-grpc-prometheus/LICENSE %{buildroot}/usr/share/package-licenses/containerd/482a69af7e9431b91119f958a5ee57f4c149808b
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/hashicorp/errwrap/LICENSE %{buildroot}/usr/share/package-licenses/containerd/523489384296f403da31edf8edf6f9023d328517
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/hashicorp/go-multierror/LICENSE %{buildroot}/usr/share/package-licenses/containerd/2ebe302ef4d8d257ac6f0a916285b51937a25641
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/hashicorp/golang-lru/LICENSE %{buildroot}/usr/share/package-licenses/containerd/ece3df1263c100f93c427face535a292723d38e7
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/imdario/mergo/LICENSE %{buildroot}/usr/share/package-licenses/containerd/eecfc0c7e0930c6ba1ed0ff2d46a0a6fa0d16d6c
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/json-iterator/go/LICENSE %{buildroot}/usr/share/package-licenses/containerd/810612ee8c1872b7ee4dba34c090ebd8f7491aa1
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/konsorten/go-windows-terminal-sequences/LICENSE %{buildroot}/usr/share/package-licenses/containerd/e2ee43b586677eaafd7dd7af25adff48adfa7cf3
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/matttproud/golang_protobuf_extensions/LICENSE %{buildroot}/usr/share/package-licenses/containerd/92170cdc034b2ff819323ff670d3b7266c8bffcd
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/mistifyio/go-zfs/LICENSE %{buildroot}/usr/share/package-licenses/containerd/b3c529b8fb7f1d56db7381bc7ef5f481ea2ac2a4
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/modern-go/concurrent/LICENSE %{buildroot}/usr/share/package-licenses/containerd/7df059597099bb7dcf25d2a9aedfaf4465f72d8d
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/modern-go/reflect2/LICENSE %{buildroot}/usr/share/package-licenses/containerd/7df059597099bb7dcf25d2a9aedfaf4465f72d8d
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/opencontainers/go-digest/LICENSE %{buildroot}/usr/share/package-licenses/containerd/76a37a42a06aa6e231383fb93d9161f074d5962b
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/opencontainers/go-digest/LICENSE.docs %{buildroot}/usr/share/package-licenses/containerd/979fd7d5c67073b265d96f584aac3de1c419b8e2
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/opencontainers/image-spec/LICENSE %{buildroot}/usr/share/package-licenses/containerd/298850a6cdb155f54cfa44641df70b36228ed031
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/opencontainers/runc/LICENSE %{buildroot}/usr/share/package-licenses/containerd/8ff574408142cd6bbb2a1b83302de24cb7b35e8b
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/opencontainers/runtime-spec/LICENSE %{buildroot}/usr/share/package-licenses/containerd/552b909d29bd260c886142a969b462c85f976dcd
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/opencontainers/selinux/LICENSE %{buildroot}/usr/share/package-licenses/containerd/92170cdc034b2ff819323ff670d3b7266c8bffcd
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/pkg/errors/LICENSE %{buildroot}/usr/share/package-licenses/containerd/9c1bedc0d42f24c24a1bd266f3ce101a4b0579fc
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/prometheus/client_golang/LICENSE %{buildroot}/usr/share/package-licenses/containerd/7df059597099bb7dcf25d2a9aedfaf4465f72d8d
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/prometheus/client_golang/NOTICE %{buildroot}/usr/share/package-licenses/containerd/fd6460234f122a19f21affb6d6885269340b9176
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/prometheus/client_model/LICENSE %{buildroot}/usr/share/package-licenses/containerd/7df059597099bb7dcf25d2a9aedfaf4465f72d8d
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/prometheus/common/LICENSE %{buildroot}/usr/share/package-licenses/containerd/7df059597099bb7dcf25d2a9aedfaf4465f72d8d
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/prometheus/procfs/LICENSE %{buildroot}/usr/share/package-licenses/containerd/7df059597099bb7dcf25d2a9aedfaf4465f72d8d
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/russross/blackfriday/LICENSE.txt %{buildroot}/usr/share/package-licenses/containerd/da34754c05d40ff81f91de8c1b85ea6e5503e21d
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/seccomp/libseccomp-golang/LICENSE %{buildroot}/usr/share/package-licenses/containerd/cd87737b0bbdeee650f6a72ee61209863b1d827f
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/sirupsen/logrus/LICENSE %{buildroot}/usr/share/package-licenses/containerd/a1c7852c717fed2c9a0284ed112ea66013230da6
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/syndtr/gocapability/LICENSE %{buildroot}/usr/share/package-licenses/containerd/a44bfde22babd7c7e1ccac9ca31f85a09358769f
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/tchap/go-patricia/LICENSE %{buildroot}/usr/share/package-licenses/containerd/7d3d6e2c0e14d20f475edae2f3936c574809efd5
+cp %{_builddir}/containerd-1.3.0/vendor/github.com/urfave/cli/LICENSE %{buildroot}/usr/share/package-licenses/containerd/62e85c543bad57a03eff756c0cfcb4bd26b77a4a
+cp %{_builddir}/containerd-1.3.0/vendor/go.etcd.io/bbolt/LICENSE %{buildroot}/usr/share/package-licenses/containerd/66c5c002958b1f31f74410b353972d622d74e007
+cp %{_builddir}/containerd-1.3.0/vendor/go.opencensus.io/LICENSE %{buildroot}/usr/share/package-licenses/containerd/1128f8f91104ba9ef98d37eea6523a888dcfa5de
+cp %{_builddir}/containerd-1.3.0/vendor/golang.org/x/crypto/LICENSE %{buildroot}/usr/share/package-licenses/containerd/d6a5f1ecaedd723c325a2063375b3517e808a2b5
+cp %{_builddir}/containerd-1.3.0/vendor/golang.org/x/net/LICENSE %{buildroot}/usr/share/package-licenses/containerd/d6a5f1ecaedd723c325a2063375b3517e808a2b5
+cp %{_builddir}/containerd-1.3.0/vendor/golang.org/x/oauth2/LICENSE %{buildroot}/usr/share/package-licenses/containerd/d6a5f1ecaedd723c325a2063375b3517e808a2b5
+cp %{_builddir}/containerd-1.3.0/vendor/golang.org/x/sync/LICENSE %{buildroot}/usr/share/package-licenses/containerd/d6a5f1ecaedd723c325a2063375b3517e808a2b5
+cp %{_builddir}/containerd-1.3.0/vendor/golang.org/x/sys/LICENSE %{buildroot}/usr/share/package-licenses/containerd/d6a5f1ecaedd723c325a2063375b3517e808a2b5
+cp %{_builddir}/containerd-1.3.0/vendor/golang.org/x/text/LICENSE %{buildroot}/usr/share/package-licenses/containerd/d6a5f1ecaedd723c325a2063375b3517e808a2b5
+cp %{_builddir}/containerd-1.3.0/vendor/golang.org/x/time/LICENSE %{buildroot}/usr/share/package-licenses/containerd/d6a5f1ecaedd723c325a2063375b3517e808a2b5
+cp %{_builddir}/containerd-1.3.0/vendor/google.golang.org/genproto/LICENSE %{buildroot}/usr/share/package-licenses/containerd/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/containerd-1.3.0/vendor/google.golang.org/grpc/LICENSE %{buildroot}/usr/share/package-licenses/containerd/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/containerd-1.3.0/vendor/gopkg.in/inf.v0/LICENSE %{buildroot}/usr/share/package-licenses/containerd/580c0a1f1386fe13bce395d23bdaf3b14ae2e20b
+cp %{_builddir}/containerd-1.3.0/vendor/gopkg.in/yaml.v2/LICENSE %{buildroot}/usr/share/package-licenses/containerd/92170cdc034b2ff819323ff670d3b7266c8bffcd
+cp %{_builddir}/containerd-1.3.0/vendor/gopkg.in/yaml.v2/LICENSE.libyaml %{buildroot}/usr/share/package-licenses/containerd/ad00ce7340d89dc13ccc59920ef75cb55af5b164
+cp %{_builddir}/containerd-1.3.0/vendor/gopkg.in/yaml.v2/NOTICE %{buildroot}/usr/share/package-licenses/containerd/9522d95b2b9b284285cc3fb6ecc445aa3ee5e785
+cp %{_builddir}/containerd-1.3.0/vendor/gotest.tools/LICENSE %{buildroot}/usr/share/package-licenses/containerd/c3001aa5b380f41731de929c562043693d7eb1ca
+cp %{_builddir}/containerd-1.3.0/vendor/gotest.tools/internal/difflib/LICENSE %{buildroot}/usr/share/package-licenses/containerd/cd3e4d932cee20da681e6b3bee8139cb4f734034
+cp %{_builddir}/containerd-1.3.0/vendor/k8s.io/api/LICENSE %{buildroot}/usr/share/package-licenses/containerd/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/containerd-1.3.0/vendor/k8s.io/apimachinery/LICENSE %{buildroot}/usr/share/package-licenses/containerd/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/containerd-1.3.0/vendor/k8s.io/apiserver/LICENSE %{buildroot}/usr/share/package-licenses/containerd/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/containerd-1.3.0/vendor/k8s.io/client-go/LICENSE %{buildroot}/usr/share/package-licenses/containerd/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/containerd-1.3.0/vendor/k8s.io/cri-api/LICENSE %{buildroot}/usr/share/package-licenses/containerd/92170cdc034b2ff819323ff670d3b7266c8bffcd
+cp %{_builddir}/containerd-1.3.0/vendor/k8s.io/klog/LICENSE %{buildroot}/usr/share/package-licenses/containerd/172ca3bbafe312a1cf09cfff26953db2f425c28e
+cp %{_builddir}/containerd-1.3.0/vendor/k8s.io/kubernetes/LICENSE %{buildroot}/usr/share/package-licenses/containerd/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/containerd-1.3.0/vendor/k8s.io/utils/LICENSE %{buildroot}/usr/share/package-licenses/containerd/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/containerd-1.3.0/vendor/sigs.k8s.io/yaml/LICENSE %{buildroot}/usr/share/package-licenses/containerd/271aeaf56ee621c5accfc2a9db0b10717e038eaf
 %make_install
 ## install_append content
 sed -i -e 's:local/::' containerd.service
@@ -194,103 +195,64 @@ install -D -m 644 containerd.service %{buildroot}/usr/lib/systemd/system/contain
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/containerd/LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_BurntSushi_toml_COPYING
-/usr/share/package-licenses/containerd/vendor_github.com_Microsoft_go-winio_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_Microsoft_hcsshim_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_Microsoft_hcsshim_pkg_go-runhcs_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_beorn7_perks_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_containerd_aufs_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_containerd_btrfs_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_containerd_cgroups_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_containerd_console_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_containerd_continuity_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_containerd_cri_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_containerd_fifo_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_containerd_go-cni_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_containerd_go-runc_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_containerd_ttrpc_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_containerd_typeurl_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_containerd_zfs_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_containernetworking_cni_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_containernetworking_plugins_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_coreos_go-systemd_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_cpuguy83_go-md2man_LICENSE.md
-/usr/share/package-licenses/containerd/vendor_github.com_davecgh_go-spew_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_docker_distribution_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_docker_docker_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_docker_docker_NOTICE
-/usr/share/package-licenses/containerd/vendor_github.com_docker_docker_pkg_symlink_LICENSE.APACHE
-/usr/share/package-licenses/containerd/vendor_github.com_docker_docker_pkg_symlink_LICENSE.BSD
-/usr/share/package-licenses/containerd/vendor_github.com_docker_go-events_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_docker_go-metrics_LICENSE.code
-/usr/share/package-licenses/containerd/vendor_github.com_docker_go-metrics_LICENSE.docs
-/usr/share/package-licenses/containerd/vendor_github.com_docker_go-units_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_docker_spdystream_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_docker_spdystream_LICENSE.docs
-/usr/share/package-licenses/containerd/vendor_github.com_emicklei_go-restful_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_godbus_dbus_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_gogo_googleapis_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_gogo_protobuf_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_golang_protobuf_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_google_go-cmp_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_google_gofuzz_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_google_uuid_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_grpc-ecosystem_go-grpc-prometheus_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_hashicorp_errwrap_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_hashicorp_go-multierror_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_hashicorp_golang-lru_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_imdario_mergo_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_json-iterator_go_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_konsorten_go-windows-terminal-sequences_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_matttproud_golang_protobuf_extensions_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_mistifyio_go-zfs_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_modern-go_concurrent_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_modern-go_reflect2_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_opencontainers_go-digest_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_opencontainers_go-digest_LICENSE.docs
-/usr/share/package-licenses/containerd/vendor_github.com_opencontainers_image-spec_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_opencontainers_runc_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_opencontainers_runtime-spec_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_opencontainers_selinux_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_pkg_errors_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_prometheus_client_golang_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_prometheus_client_golang_NOTICE
-/usr/share/package-licenses/containerd/vendor_github.com_prometheus_client_model_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_prometheus_common_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_prometheus_procfs_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_russross_blackfriday_LICENSE.txt
-/usr/share/package-licenses/containerd/vendor_github.com_seccomp_libseccomp-golang_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_sirupsen_logrus_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_syndtr_gocapability_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_tchap_go-patricia_LICENSE
-/usr/share/package-licenses/containerd/vendor_github.com_urfave_cli_LICENSE
-/usr/share/package-licenses/containerd/vendor_go.etcd.io_bbolt_LICENSE
-/usr/share/package-licenses/containerd/vendor_go.opencensus.io_LICENSE
-/usr/share/package-licenses/containerd/vendor_golang.org_x_crypto_LICENSE
-/usr/share/package-licenses/containerd/vendor_golang.org_x_net_LICENSE
-/usr/share/package-licenses/containerd/vendor_golang.org_x_oauth2_LICENSE
-/usr/share/package-licenses/containerd/vendor_golang.org_x_sync_LICENSE
-/usr/share/package-licenses/containerd/vendor_golang.org_x_sys_LICENSE
-/usr/share/package-licenses/containerd/vendor_golang.org_x_text_LICENSE
-/usr/share/package-licenses/containerd/vendor_golang.org_x_time_LICENSE
-/usr/share/package-licenses/containerd/vendor_google.golang.org_genproto_LICENSE
-/usr/share/package-licenses/containerd/vendor_google.golang.org_grpc_LICENSE
-/usr/share/package-licenses/containerd/vendor_gopkg.in_inf.v0_LICENSE
-/usr/share/package-licenses/containerd/vendor_gopkg.in_yaml.v2_LICENSE
-/usr/share/package-licenses/containerd/vendor_gopkg.in_yaml.v2_LICENSE.libyaml
-/usr/share/package-licenses/containerd/vendor_gopkg.in_yaml.v2_NOTICE
-/usr/share/package-licenses/containerd/vendor_gotest.tools_LICENSE
-/usr/share/package-licenses/containerd/vendor_gotest.tools_internal_difflib_LICENSE
-/usr/share/package-licenses/containerd/vendor_k8s.io_api_LICENSE
-/usr/share/package-licenses/containerd/vendor_k8s.io_apimachinery_LICENSE
-/usr/share/package-licenses/containerd/vendor_k8s.io_apiserver_LICENSE
-/usr/share/package-licenses/containerd/vendor_k8s.io_client-go_LICENSE
-/usr/share/package-licenses/containerd/vendor_k8s.io_cri-api_LICENSE
-/usr/share/package-licenses/containerd/vendor_k8s.io_klog_LICENSE
-/usr/share/package-licenses/containerd/vendor_k8s.io_kubernetes_LICENSE
-/usr/share/package-licenses/containerd/vendor_k8s.io_utils_LICENSE
-/usr/share/package-licenses/containerd/vendor_sigs.k8s.io_yaml_LICENSE
+/usr/share/package-licenses/containerd/06b27345acae9303e13dde9974d2b2e318b05989
+/usr/share/package-licenses/containerd/08021ae73f58f423dd6e7b525e81cf2520f7619e
+/usr/share/package-licenses/containerd/1128f8f91104ba9ef98d37eea6523a888dcfa5de
+/usr/share/package-licenses/containerd/11a8fec351554e8f6c3f4dac5a1f4049dd467ba8
+/usr/share/package-licenses/containerd/172ca3bbafe312a1cf09cfff26953db2f425c28e
+/usr/share/package-licenses/containerd/271aeaf56ee621c5accfc2a9db0b10717e038eaf
+/usr/share/package-licenses/containerd/298850a6cdb155f54cfa44641df70b36228ed031
+/usr/share/package-licenses/containerd/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+/usr/share/package-licenses/containerd/2ebe302ef4d8d257ac6f0a916285b51937a25641
+/usr/share/package-licenses/containerd/3110e55750143a84918d7423febc9c83a55bc28c
+/usr/share/package-licenses/containerd/376caa2cd54c4196280157d071524614350e7ce8
+/usr/share/package-licenses/containerd/482a69af7e9431b91119f958a5ee57f4c149808b
+/usr/share/package-licenses/containerd/523489384296f403da31edf8edf6f9023d328517
+/usr/share/package-licenses/containerd/552b909d29bd260c886142a969b462c85f976dcd
+/usr/share/package-licenses/containerd/56b820712432e458f05f883566ca8cd85dcdaad5
+/usr/share/package-licenses/containerd/580c0a1f1386fe13bce395d23bdaf3b14ae2e20b
+/usr/share/package-licenses/containerd/62e85c543bad57a03eff756c0cfcb4bd26b77a4a
+/usr/share/package-licenses/containerd/669a1e53b9dd9df3474300d3d959bb85bad75945
+/usr/share/package-licenses/containerd/66c5c002958b1f31f74410b353972d622d74e007
+/usr/share/package-licenses/containerd/7080652cc78cd9855d39e324529a3b5f3745dcd6
+/usr/share/package-licenses/containerd/76a37a42a06aa6e231383fb93d9161f074d5962b
+/usr/share/package-licenses/containerd/7d3d6e2c0e14d20f475edae2f3936c574809efd5
+/usr/share/package-licenses/containerd/7df059597099bb7dcf25d2a9aedfaf4465f72d8d
+/usr/share/package-licenses/containerd/7f8c8c31bf3ed5b6616225c00b5a960c2bbbae2f
+/usr/share/package-licenses/containerd/810612ee8c1872b7ee4dba34c090ebd8f7491aa1
+/usr/share/package-licenses/containerd/878e7d86573d6c8ff65d2eaab294734b3f4d3d81
+/usr/share/package-licenses/containerd/8e5643a553edd1143413a2ff85104539b7dbecca
+/usr/share/package-licenses/containerd/8ff574408142cd6bbb2a1b83302de24cb7b35e8b
+/usr/share/package-licenses/containerd/92170cdc034b2ff819323ff670d3b7266c8bffcd
+/usr/share/package-licenses/containerd/9522d95b2b9b284285cc3fb6ecc445aa3ee5e785
+/usr/share/package-licenses/containerd/979fd7d5c67073b265d96f584aac3de1c419b8e2
+/usr/share/package-licenses/containerd/994658c265db5dbf456fa6163905cc9c0b3bda46
+/usr/share/package-licenses/containerd/9c1bedc0d42f24c24a1bd266f3ce101a4b0579fc
+/usr/share/package-licenses/containerd/a1c7852c717fed2c9a0284ed112ea66013230da6
+/usr/share/package-licenses/containerd/a44bfde22babd7c7e1ccac9ca31f85a09358769f
+/usr/share/package-licenses/containerd/a71b5152bb7c0d188273009e050644a6788d4d4c
+/usr/share/package-licenses/containerd/a8993f4a51771a0333dbbc5b1c4395a2ccaa4d9f
+/usr/share/package-licenses/containerd/aa9b240f558caed367795f667629ccbca28f20b2
+/usr/share/package-licenses/containerd/ad00ce7340d89dc13ccc59920ef75cb55af5b164
+/usr/share/package-licenses/containerd/b2e4520feb0f9b51ad373256b94c3faf4c1e6871
+/usr/share/package-licenses/containerd/b3c529b8fb7f1d56db7381bc7ef5f481ea2ac2a4
+/usr/share/package-licenses/containerd/b7a606730713ac061594edab33cf941704b4a95c
+/usr/share/package-licenses/containerd/bb8bbeae44ef2e1eb6f8fec601a6234d4c5a51f7
+/usr/share/package-licenses/containerd/c3001aa5b380f41731de929c562043693d7eb1ca
+/usr/share/package-licenses/containerd/c6821d75aac4a65fae7d56a425e304beb3689c26
+/usr/share/package-licenses/containerd/c700a8b9312d24bdc57570f7d6a131cf63d89016
+/usr/share/package-licenses/containerd/cd3e4d932cee20da681e6b3bee8139cb4f734034
+/usr/share/package-licenses/containerd/cd87737b0bbdeee650f6a72ee61209863b1d827f
+/usr/share/package-licenses/containerd/d2f340a01dd48b589a70f627cf7058c585a315e4
+/usr/share/package-licenses/containerd/d3b7a70b03b43d4e7205d178100581923a0baad2
+/usr/share/package-licenses/containerd/d6a5f1ecaedd723c325a2063375b3517e808a2b5
+/usr/share/package-licenses/containerd/da34754c05d40ff81f91de8c1b85ea6e5503e21d
+/usr/share/package-licenses/containerd/e2ee43b586677eaafd7dd7af25adff48adfa7cf3
+/usr/share/package-licenses/containerd/ea2531724c168e1e53717622d1bf302554225f2b
+/usr/share/package-licenses/containerd/ece3df1263c100f93c427face535a292723d38e7
+/usr/share/package-licenses/containerd/eecfc0c7e0930c6ba1ed0ff2d46a0a6fa0d16d6c
+/usr/share/package-licenses/containerd/f9cab757896ef6b3570e62b2df7fb63ab1a34b80
+/usr/share/package-licenses/containerd/fd6460234f122a19f21affb6d6885269340b9176
 
 %files services
 %defattr(-,root,root,-)
