@@ -1,4 +1,8 @@
 export GOPATH=$HOME/go GO111MODULES=off
 mkdir -p $HOME/go/src/github.com/containerd/
 ln -s /builddir/build/BUILD/%{name}-%{version} $HOME/go/src/github.com/containerd/containerd
+ln -s /builddir/build/BUILD/cri-* $HOME/go/src/github.com/containerd/cri
+pushd $HOME/go/src/github.com/containerd/cri
+make V=1 %{?_smp_mflags} VERSION=%{version} INCLUDE_CNI=false
+popd
 pushd $HOME/go/src/github.com/containerd/containerd
