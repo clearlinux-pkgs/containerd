@@ -1,1 +1,1 @@
-V=1 REVISION="" VERSION=%{version}
+V=1 REVISION="" VERSION=%{version} GO_BUILD_FLAGS="-buildmode=pie" EXTRA_TAGS="netgo osusergo"

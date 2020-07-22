@@ -4,7 +4,7 @@
 #
 Name     : containerd
 Version  : 1.3.4
-Release  : 37
+Release  : 38
 URL      : https://github.com/containerd/containerd/archive/v1.3.4.tar.gz
 Source0  : https://github.com/containerd/containerd/archive/v1.3.4.tar.gz
 Source1  : https://github.com/containerd/cri/archive/f864905c93b97db15503c217dc9a43eb65670b53.tar.gz
@@ -17,6 +17,7 @@ Requires: containerd-services = %{version}-%{release}
 BuildRequires : btrfs-progs-dev
 BuildRequires : buildreq-golang
 BuildRequires : libseccomp-dev
+Patch1: static-pie.patch
 
 %description
 An open and reliable container runtime
@@ -54,13 +55,14 @@ tar xf %{_sourcedir}/f864905c93b97db15503c217dc9a43eb65670b53.tar.gz
 cd %{_builddir}/containerd-1.3.4
 mkdir -p cri
 cp -r %{_builddir}/cri-f864905c93b97db15503c217dc9a43eb65670b53/* %{_builddir}/containerd-1.3.4/cri
+%patch1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1588112415
+export SOURCE_DATE_EPOCH=1595381959
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -75,15 +77,15 @@ mkdir -p $HOME/go/src/github.com/containerd/
 ln -s /builddir/build/BUILD/%{name}-%{version} $HOME/go/src/github.com/containerd/containerd
 ln -s /builddir/build/BUILD/cri-* $HOME/go/src/github.com/containerd/cri
 pushd $HOME/go/src/github.com/containerd/cri
-make V=1 %{?_smp_mflags} VERSION=%{version} INCLUDE_CNI=false
+make V=1 %{?_smp_mflags} VERSION=%{version} INCLUDE_CNI=false GOFLAGS="-buildmode=pie"
 popd
 pushd $HOME/go/src/github.com/containerd/containerd
 ## make_prepend end
-make  %{?_smp_mflags}  V=1 REVISION="" VERSION=%{version}
+make  %{?_smp_mflags}  V=1 REVISION="" VERSION=%{version} GO_BUILD_FLAGS="-buildmode=pie" EXTRA_TAGS="netgo osusergo"
 
 
 %install
-export SOURCE_DATE_EPOCH=1588112415
+export SOURCE_DATE_EPOCH=1595381959
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/containerd
 cp %{_builddir}/containerd-1.3.4/LICENSE %{buildroot}/usr/share/package-licenses/containerd/d3b7a70b03b43d4e7205d178100581923a0baad2
