@@ -4,7 +4,7 @@
 #
 Name     : containerd
 Version  : 1.3.4
-Release  : 40
+Release  : 41
 URL      : https://github.com/containerd/containerd/archive/v1.3.4.tar.gz
 Source0  : https://github.com/containerd/containerd/archive/v1.3.4.tar.gz
 Source1  : https://github.com/containerd/cri/archive/f864905c93b97db15503c217dc9a43eb65670b53.tar.gz
@@ -62,7 +62,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1595381959
+export SOURCE_DATE_EPOCH=1605149354
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -85,7 +85,7 @@ make  %{?_smp_mflags}  V=1 REVISION="" VERSION=%{version} GO_BUILD_FLAGS="-build
 
 
 %install
-export SOURCE_DATE_EPOCH=1595381959
+export SOURCE_DATE_EPOCH=1605149354
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/containerd
 cp %{_builddir}/containerd-1.3.4/LICENSE %{buildroot}/usr/share/package-licenses/containerd/d3b7a70b03b43d4e7205d178100581923a0baad2

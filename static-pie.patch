@@ -1,5 +1,5 @@
 diff --git a/Makefile b/Makefile
-index c1ea1dd..61e8f5c 100644
+index c1ea1dd..9d4df20 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -95,9 +95,10 @@ endif
@@ -10,7 +10,7 @@ index c1ea1dd..61e8f5c 100644
  GO_TAGS=$(if $(GO_BUILDTAGS),-tags "$(GO_BUILDTAGS)",)
  GO_LDFLAGS=-ldflags '-X $(PKG)/version.Version=$(VERSION) -X $(PKG)/version.Revision=$(REVISION) -X $(PKG)/version.Package=$(PACKAGE) $(EXTRA_LDFLAGS)'
 -SHIM_GO_LDFLAGS=-ldflags '-X $(PKG)/version.Version=$(VERSION) -X $(PKG)/version.Revision=$(REVISION) -X $(PKG)/version.Package=$(PACKAGE) -extldflags "-static" $(EXTRA_LDFLAGS)'
-+SHIM_GO_LDFLAGS=-ldflags '-X $(PKG)/version.Version=$(VERSION) -X $(PKG)/version.Revision=$(REVISION) -X $(PKG)/version.Package=$(PACKAGE) -extldflags "-static-pie" $(EXTRA_LDFLAGS)'
++SHIM_GO_LDFLAGS=-ldflags '-X $(PKG)/version.Version=$(VERSION) -X $(PKG)/version.Revision=$(REVISION) -X $(PKG)/version.Package=$(PACKAGE) -linkmode external -extldflags "-static-pie" $(EXTRA_LDFLAGS)'
  
  #Replaces ":" (*nix), ";" (windows) with newline for easy parsing
  GOPATHS=$(shell echo ${GOPATH} | tr ":" "\n" | tr ";" "\n")
