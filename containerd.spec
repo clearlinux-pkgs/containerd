@@ -4,7 +4,7 @@
 #
 Name     : containerd
 Version  : 1.3.4
-Release  : 39
+Release  : 40
 URL      : https://github.com/containerd/containerd/archive/v1.3.4.tar.gz
 Source0  : https://github.com/containerd/containerd/archive/v1.3.4.tar.gz
 Source1  : https://github.com/containerd/cri/archive/f864905c93b97db15503c217dc9a43eb65670b53.tar.gz
