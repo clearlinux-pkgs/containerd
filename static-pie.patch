@@ -1,10 +1,42 @@
+From 85ebc84de52ab3fd72a452484daab2beb5a60288 Mon Sep 17 00:00:00 2001
+From: Mark D Horn <mark.d.horn@intel.com>
+Date: Wed, 16 Dec 2020 09:16:55 -0800
+Subject: [PATCH] static-pie
+
+Update ldflags for static-pie compatibility
+
+In go 1.15, the default linkmode is `internal` when specifying
+`-buildmode=pie`. Previously, the default linkmode was `external` for this
+buildmode, so it needs to be specified manually now, as static-pie mode does
+not appear possible (yet) with the internal linker.
+
+Note that this change is backwards compatible with go 1.13 in case we need to
+downgrade later.
+
+Updated for containerd-1.4.3 changes.
+
+Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
+Signed-off-by: Mark D Horn <mark.d.horn@intel.com>
+---
+ Makefile | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
 diff --git a/Makefile b/Makefile
-index c1ea1dd..9d4df20 100644
+index c0fecb9a6ba1..3689a68678ef 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -95,9 +95,10 @@ endif
- # Build tags seccomp and apparmor are needed by CRI plugin.
- GO_BUILDTAGS ?= seccomp apparmor
+@@ -23,7 +23,7 @@ DESTDIR ?= /usr/local
+ VERSION=$(shell git describe --match 'v[0-9]*' --dirty='.m' --always)
+ REVISION=$(shell git rev-parse HEAD)$(shell if ! git diff --no-ext-diff --quiet --exit-code; then echo .m; fi)
+ PACKAGE=github.com/containerd/containerd
+-SHIM_CGO_ENABLED ?= 0
++SHIM_CGO_ENABLED ?= 1
+ 
+ ifneq "$(strip $(shell command -v go 2>/dev/null))" ""
+ 	GOOS ?= $(shell go env GOOS)
+@@ -78,9 +78,10 @@ endif
+ # Build tags apparmor and selinux are needed by CRI plugin.
+ GO_BUILDTAGS ?= apparmor selinux
  GO_BUILDTAGS += ${DEBUG_TAGS}
 +GO_BUILDTAGS += ${EXTRA_TAGS}
  GO_TAGS=$(if $(GO_BUILDTAGS),-tags "$(GO_BUILDTAGS)",)
@@ -12,24 +44,8 @@ index c1ea1dd..9d4df20 100644
 -SHIM_GO_LDFLAGS=-ldflags '-X $(PKG)/version.Version=$(VERSION) -X $(PKG)/version.Revision=$(REVISION) -X $(PKG)/version.Package=$(PACKAGE) -extldflags "-static" $(EXTRA_LDFLAGS)'
 +SHIM_GO_LDFLAGS=-ldflags '-X $(PKG)/version.Version=$(VERSION) -X $(PKG)/version.Revision=$(REVISION) -X $(PKG)/version.Package=$(PACKAGE) -linkmode external -extldflags "-static-pie" $(EXTRA_LDFLAGS)'
  
- #Replaces ":" (*nix), ";" (windows) with newline for easy parsing
- GOPATHS=$(shell echo ${GOPATH} | tr ":" "\n" | tr ";" "\n")
-@@ -189,15 +190,15 @@ bin/%: cmd/% FORCE
- 
- bin/containerd-shim: cmd/containerd-shim FORCE # set !cgo and omit pie for a static shim build: https://github.com/golang/go/issues/17789#issuecomment-258542220
- 	@echo "$(WHALE) bin/containerd-shim"
--	@CGO_ENABLED=0 go build ${GO_BUILD_FLAGS} -o bin/containerd-shim ${SHIM_GO_LDFLAGS} ${GO_TAGS} ./cmd/containerd-shim
-+	@go build ${GO_BUILD_FLAGS} -o bin/containerd-shim ${SHIM_GO_LDFLAGS} ${GO_TAGS} ./cmd/containerd-shim
- 
- bin/containerd-shim-runc-v1: cmd/containerd-shim-runc-v1 FORCE # set !cgo and omit pie for a static shim build: https://github.com/golang/go/issues/17789#issuecomment-258542220
- 	@echo "$(WHALE) bin/containerd-shim-runc-v1"
--	@CGO_ENABLED=0 go build ${GO_BUILD_FLAGS} -o bin/containerd-shim-runc-v1 ${SHIM_GO_LDFLAGS} ${GO_TAGS} ./cmd/containerd-shim-runc-v1
-+	@go build ${GO_BUILD_FLAGS} -o bin/containerd-shim-runc-v1 ${SHIM_GO_LDFLAGS} ${GO_TAGS} ./cmd/containerd-shim-runc-v1
- 
- bin/containerd-shim-runc-v2: cmd/containerd-shim-runc-v2 FORCE # set !cgo and omit pie for a static shim build: https://github.com/golang/go/issues/17789#issuecomment-258542220
- 	@echo "$(WHALE) bin/containerd-shim-runc-v2"
--	@CGO_ENABLED=0 go build ${GO_BUILD_FLAGS} -o bin/containerd-shim-runc-v2 ${SHIM_GO_LDFLAGS} ${GO_TAGS} ./cmd/containerd-shim-runc-v2
-+	@go build ${GO_BUILD_FLAGS} -o bin/containerd-shim-runc-v2 ${SHIM_GO_LDFLAGS} ${GO_TAGS} ./cmd/containerd-shim-runc-v2
- 
- binaries: $(BINARIES) ## build binaries
- 	@echo "$(WHALE) $@"
+ # Project packages.
+ PACKAGES=$(shell go list ${GO_TAGS} ./... | grep -v /vendor/)
+-- 
+2.29.2
+
