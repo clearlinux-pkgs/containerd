@@ -4,7 +4,7 @@
 #
 Name     : containerd
 Version  : 1.4.4
-Release  : 53
+Release  : 55
 URL      : https://github.com/containerd/containerd/archive/v1.4.4.tar.gz
 Source0  : https://github.com/containerd/containerd/archive/v1.4.4.tar.gz
 Source1  : https://github.com/containerd/cri/archive/aa2d5a97cdc4ef93919fb7d243213ce33b089aa2.tar.gz
@@ -62,7 +62,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1620671147
+export SOURCE_DATE_EPOCH=1624664956
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -72,7 +72,7 @@ export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
 export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 ## make_prepend content
-export GOPATH=$HOME/go GO111MODULES=off
+export GOPATH=$HOME/go GO111MODULE="auto"
 mkdir -p $HOME/go/src/github.com/containerd/
 ln -s /builddir/build/BUILD/%{name}-%{version} $HOME/go/src/github.com/containerd/containerd
 ln -s /builddir/build/BUILD/cri-* $HOME/go/src/github.com/containerd/cri
@@ -85,7 +85,7 @@ make  %{?_smp_mflags}  V=1 REVISION="" VERSION=%{version} GO_BUILD_FLAGS="-build
 
 
 %install
-export SOURCE_DATE_EPOCH=1620671147
+export SOURCE_DATE_EPOCH=1624664956
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/containerd
 cp %{_builddir}/containerd-1.4.4/LICENSE %{buildroot}/usr/share/package-licenses/containerd/d3b7a70b03b43d4e7205d178100581923a0baad2

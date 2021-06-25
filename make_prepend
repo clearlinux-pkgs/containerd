@@ -1,4 +1,4 @@
-export GOPATH=$HOME/go GO111MODULES=off
+export GOPATH=$HOME/go GO111MODULE="auto"
 mkdir -p $HOME/go/src/github.com/containerd/
 ln -s /builddir/build/BUILD/%{name}-%{version} $HOME/go/src/github.com/containerd/containerd
 ln -s /builddir/build/BUILD/cri-* $HOME/go/src/github.com/containerd/cri
