@@ -4,7 +4,7 @@
 #
 Name     : containerd
 Version  : 1.4.4
-Release  : 55
+Release  : 56
 URL      : https://github.com/containerd/containerd/archive/v1.4.4.tar.gz
 Source0  : https://github.com/containerd/containerd/archive/v1.4.4.tar.gz
 Source1  : https://github.com/containerd/cri/archive/aa2d5a97cdc4ef93919fb7d243213ce33b089aa2.tar.gz
@@ -17,7 +17,6 @@ Requires: containerd-services = %{version}-%{release}
 BuildRequires : btrfs-progs-dev
 BuildRequires : buildreq-golang
 BuildRequires : libseccomp-dev
-Patch1: static-pie.patch
 
 %description
 An open and reliable container runtime
@@ -55,14 +54,13 @@ tar xf %{_sourcedir}/aa2d5a97cdc4ef93919fb7d243213ce33b089aa2.tar.gz
 cd %{_builddir}/containerd-1.4.4
 mkdir -p cri
 cp -r %{_builddir}/cri-aa2d5a97cdc4ef93919fb7d243213ce33b089aa2/* %{_builddir}/containerd-1.4.4/cri
-%patch1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1624664956
+export SOURCE_DATE_EPOCH=1626109789
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -85,7 +83,7 @@ make  %{?_smp_mflags}  V=1 REVISION="" VERSION=%{version} GO_BUILD_FLAGS="-build
 
 
 %install
-export SOURCE_DATE_EPOCH=1624664956
+export SOURCE_DATE_EPOCH=1626109789
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/containerd
 cp %{_builddir}/containerd-1.4.4/LICENSE %{buildroot}/usr/share/package-licenses/containerd/d3b7a70b03b43d4e7205d178100581923a0baad2
