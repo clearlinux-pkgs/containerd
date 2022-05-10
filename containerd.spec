@@ -4,7 +4,7 @@
 #
 Name     : containerd
 Version  : 1.4.12
-Release  : 77
+Release  : 78
 URL      : https://github.com/containerd/containerd/archive/refs/tags/v1.4.12.tar.gz
 Source0  : https://github.com/containerd/containerd/archive/refs/tags/v1.4.12.tar.gz
 Summary  : An open and reliable container runtime
