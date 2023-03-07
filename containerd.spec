@@ -4,7 +4,7 @@
 #
 Name     : containerd
 Version  : 1.6.19
-Release  : 94
+Release  : 95
 URL      : https://github.com/containerd/containerd/archive/v1.6.19/containerd-1.6.19.tar.gz
 Source0  : https://github.com/containerd/containerd/archive/v1.6.19/containerd-1.6.19.tar.gz
 Summary  : An open and reliable container runtime
