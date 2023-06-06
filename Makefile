@@ -1,5 +1,5 @@
 PKG_NAME := containerd
-URL = https://github.com/containerd/containerd/archive/v1.7.0/containerd-1.7.0.tar.gz
+URL = https://github.com/containerd/containerd/archive/v1.7.2/containerd-1.7.2.tar.gz
 ARCHIVES = 
 
 include ../common/Makefile.common
