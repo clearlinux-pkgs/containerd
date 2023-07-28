@@ -4,10 +4,10 @@
 # Using build pattern: make
 #
 Name     : containerd
-Version  : 1.7.2
-Release  : 100
-URL      : https://github.com/containerd/containerd/archive/v1.7.2/containerd-1.7.2.tar.gz
-Source0  : https://github.com/containerd/containerd/archive/v1.7.2/containerd-1.7.2.tar.gz
+Version  : 1.7.3
+Release  : 101
+URL      : https://github.com/containerd/containerd/archive/v1.7.3/containerd-1.7.3.tar.gz
+Source0  : https://github.com/containerd/containerd/archive/v1.7.3/containerd-1.7.3.tar.gz
 Summary  : An open and reliable container runtime
 Group    : Development/Tools
 License  : Apache-2.0 BSD-2-Clause BSD-3-Clause CC-BY-SA-4.0 ISC MIT MPL-2.0 MPL-2.0-no-copyleft-exception
@@ -52,8 +52,8 @@ services components for the containerd package.
 
 
 %prep
-%setup -q -n containerd-1.7.2
-cd %{_builddir}/containerd-1.7.2
+%setup -q -n containerd-1.7.3
+cd %{_builddir}/containerd-1.7.3
 
 %build
 ## build_prepend content
@@ -63,7 +63,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1686066784
+export SOURCE_DATE_EPOCH=1690553149
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -82,7 +82,7 @@ make  %{?_smp_mflags}  V=1 REVISION="" VERSION=%{version} EXTRA_TAGS="netgo osus
 
 
 %install
-export SOURCE_DATE_EPOCH=1686066784
+export SOURCE_DATE_EPOCH=1690553149
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/containerd
 cp %{_builddir}/containerd-%{version}/LICENSE %{buildroot}/usr/share/package-licenses/containerd/d3b7a70b03b43d4e7205d178100581923a0baad2 || :
@@ -149,7 +149,7 @@ cp %{_builddir}/containerd-%{version}/vendor/github.com/klauspost/cpuid/v2/LICEN
 cp %{_builddir}/containerd-%{version}/vendor/github.com/matttproud/golang_protobuf_extensions/LICENSE %{buildroot}/usr/share/package-licenses/containerd/92170cdc034b2ff819323ff670d3b7266c8bffcd || :
 cp %{_builddir}/containerd-%{version}/vendor/github.com/miekg/pkcs11/LICENSE %{buildroot}/usr/share/package-licenses/containerd/a347f428584b1ae13a669c007351ba7885597d59 || :
 cp %{_builddir}/containerd-%{version}/vendor/github.com/minio/sha256-simd/LICENSE %{buildroot}/usr/share/package-licenses/containerd/2b8b815229aa8a61e483fb4ba0588b8b6c491890 || :
-cp %{_builddir}/containerd-%{version}/vendor/github.com/mistifyio/go-zfs/LICENSE %{buildroot}/usr/share/package-licenses/containerd/b3c529b8fb7f1d56db7381bc7ef5f481ea2ac2a4 || :
+cp %{_builddir}/containerd-%{version}/vendor/github.com/mistifyio/go-zfs/v3/LICENSE %{buildroot}/usr/share/package-licenses/containerd/b3c529b8fb7f1d56db7381bc7ef5f481ea2ac2a4 || :
 cp %{_builddir}/containerd-%{version}/vendor/github.com/moby/locker/LICENSE %{buildroot}/usr/share/package-licenses/containerd/600a7a38fdb246fd62c4e101868e6d0da9a3843c || :
 cp %{_builddir}/containerd-%{version}/vendor/github.com/moby/spdystream/LICENSE %{buildroot}/usr/share/package-licenses/containerd/2b8b815229aa8a61e483fb4ba0588b8b6c491890 || :
 cp %{_builddir}/containerd-%{version}/vendor/github.com/moby/sys/mountinfo/LICENSE %{buildroot}/usr/share/package-licenses/containerd/2b8b815229aa8a61e483fb4ba0588b8b6c491890 || :
