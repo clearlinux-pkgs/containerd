@@ -4,10 +4,10 @@
 # Using build pattern: make
 #
 Name     : containerd
-Version  : 1.7.3
-Release  : 103
-URL      : https://github.com/containerd/containerd/archive/v1.7.3/containerd-1.7.3.tar.gz
-Source0  : https://github.com/containerd/containerd/archive/v1.7.3/containerd-1.7.3.tar.gz
+Version  : 1.7.4
+Release  : 104
+URL      : https://github.com/containerd/containerd/archive/v1.7.4/containerd-1.7.4.tar.gz
+Source0  : https://github.com/containerd/containerd/archive/v1.7.4/containerd-1.7.4.tar.gz
 Summary  : An open and reliable container runtime
 Group    : Development/Tools
 License  : Apache-2.0 BSD-2-Clause BSD-3-Clause CC-BY-SA-4.0 ISC MIT MPL-2.0 MPL-2.0-no-copyleft-exception
@@ -52,8 +52,8 @@ services components for the containerd package.
 
 
 %prep
-%setup -q -n containerd-1.7.3
-cd %{_builddir}/containerd-1.7.3
+%setup -q -n containerd-1.7.4
+cd %{_builddir}/containerd-1.7.4
 
 %build
 ## build_prepend content
@@ -63,7 +63,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1690553149
+export SOURCE_DATE_EPOCH=1692974790
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -82,7 +82,7 @@ make  %{?_smp_mflags}  V=1 REVISION="" VERSION=%{version} EXTRA_TAGS="netgo osus
 
 
 %install
-export SOURCE_DATE_EPOCH=1690553149
+export SOURCE_DATE_EPOCH=1692974790
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/containerd
 cp %{_builddir}/containerd-%{version}/LICENSE %{buildroot}/usr/share/package-licenses/containerd/d3b7a70b03b43d4e7205d178100581923a0baad2 || :
@@ -117,7 +117,6 @@ cp %{_builddir}/containerd-%{version}/vendor/github.com/containernetworking/plug
 cp %{_builddir}/containerd-%{version}/vendor/github.com/containers/ocicrypt/LICENSE %{buildroot}/usr/share/package-licenses/containerd/3037fadf4c833d13c87fcd0b2f932de187edf676 || :
 cp %{_builddir}/containerd-%{version}/vendor/github.com/coreos/go-systemd/v22/LICENSE %{buildroot}/usr/share/package-licenses/containerd/172ca3bbafe312a1cf09cfff26953db2f425c28e || :
 cp %{_builddir}/containerd-%{version}/vendor/github.com/cpuguy83/go-md2man/v2/LICENSE.md %{buildroot}/usr/share/package-licenses/containerd/b7a606730713ac061594edab33cf941704b4a95c || :
-cp %{_builddir}/containerd-%{version}/vendor/github.com/cyphar/filepath-securejoin/LICENSE %{buildroot}/usr/share/package-licenses/containerd/8fb92f475d78da1315877a719c6856fc64531d30 || :
 cp %{_builddir}/containerd-%{version}/vendor/github.com/davecgh/go-spew/LICENSE %{buildroot}/usr/share/package-licenses/containerd/d2f340a01dd48b589a70f627cf7058c585a315e4 || :
 cp %{_builddir}/containerd-%{version}/vendor/github.com/docker/go-events/LICENSE %{buildroot}/usr/share/package-licenses/containerd/8e5643a553edd1143413a2ff85104539b7dbecca || :
 cp %{_builddir}/containerd-%{version}/vendor/github.com/docker/go-metrics/LICENSE %{buildroot}/usr/share/package-licenses/containerd/376caa2cd54c4196280157d071524614350e7ce8 || :
@@ -292,7 +291,6 @@ install -D -m 644 containerd.service %{buildroot}/usr/lib/systemd/system/contain
 /usr/share/package-licenses/containerd/818cd8d3934fc2af85e81c1f39c51ef7f661c139
 /usr/share/package-licenses/containerd/892204393ca075d09c8b1c1d880aba1ae0a2b805
 /usr/share/package-licenses/containerd/8e5643a553edd1143413a2ff85104539b7dbecca
-/usr/share/package-licenses/containerd/8fb92f475d78da1315877a719c6856fc64531d30
 /usr/share/package-licenses/containerd/8ff574408142cd6bbb2a1b83302de24cb7b35e8b
 /usr/share/package-licenses/containerd/92170cdc034b2ff819323ff670d3b7266c8bffcd
 /usr/share/package-licenses/containerd/93ac97c9679b68518f1fd7de627ce2f77f44082d
