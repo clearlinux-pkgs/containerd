@@ -4,10 +4,10 @@
 # Using build pattern: make
 #
 Name     : containerd
-Version  : 1.7.4
-Release  : 104
-URL      : https://github.com/containerd/containerd/archive/v1.7.4/containerd-1.7.4.tar.gz
-Source0  : https://github.com/containerd/containerd/archive/v1.7.4/containerd-1.7.4.tar.gz
+Version  : 1.7.5
+Release  : 105
+URL      : https://github.com/containerd/containerd/archive/v1.7.5/containerd-1.7.5.tar.gz
+Source0  : https://github.com/containerd/containerd/archive/v1.7.5/containerd-1.7.5.tar.gz
 Summary  : An open and reliable container runtime
 Group    : Development/Tools
 License  : Apache-2.0 BSD-2-Clause BSD-3-Clause CC-BY-SA-4.0 ISC MIT MPL-2.0 MPL-2.0-no-copyleft-exception
@@ -52,8 +52,8 @@ services components for the containerd package.
 
 
 %prep
-%setup -q -n containerd-1.7.4
-cd %{_builddir}/containerd-1.7.4
+%setup -q -n containerd-1.7.5
+cd %{_builddir}/containerd-1.7.5
 
 %build
 ## build_prepend content
@@ -63,7 +63,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1692974790
+export SOURCE_DATE_EPOCH=1693246683
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -82,7 +82,7 @@ make  %{?_smp_mflags}  V=1 REVISION="" VERSION=%{version} EXTRA_TAGS="netgo osus
 
 
 %install
-export SOURCE_DATE_EPOCH=1692974790
+export SOURCE_DATE_EPOCH=1693246683
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/containerd
 cp %{_builddir}/containerd-%{version}/LICENSE %{buildroot}/usr/share/package-licenses/containerd/d3b7a70b03b43d4e7205d178100581923a0baad2 || :
