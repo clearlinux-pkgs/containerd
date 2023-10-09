@@ -4,10 +4,10 @@
 # Using build pattern: make
 #
 Name     : containerd
-Version  : 1.7.6
-Release  : 106
-URL      : https://github.com/containerd/containerd/archive/v1.7.6/containerd-1.7.6.tar.gz
-Source0  : https://github.com/containerd/containerd/archive/v1.7.6/containerd-1.7.6.tar.gz
+Version  : 1.7.7
+Release  : 107
+URL      : https://github.com/containerd/containerd/archive/v1.7.7/containerd-1.7.7.tar.gz
+Source0  : https://github.com/containerd/containerd/archive/v1.7.7/containerd-1.7.7.tar.gz
 Summary  : An open and reliable container runtime
 Group    : Development/Tools
 License  : Apache-2.0 BSD-2-Clause BSD-3-Clause CC-BY-SA-4.0 ISC MIT MPL-2.0 MPL-2.0-no-copyleft-exception
@@ -52,8 +52,8 @@ services components for the containerd package.
 
 
 %prep
-%setup -q -n containerd-1.7.6
-cd %{_builddir}/containerd-1.7.6
+%setup -q -n containerd-1.7.7
+cd %{_builddir}/containerd-1.7.7
 
 %build
 ## build_prepend content
@@ -63,15 +63,21 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1694616261
+export SOURCE_DATE_EPOCH=1696892959
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
-export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
-export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
-export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_FCFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS"
+CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS"
+FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
+FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
+ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
+LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
 ## make_prepend content
 export GOPATH=$HOME/go GO111MODULE="auto"
 mkdir -p $HOME/go/src/github.com/containerd/
@@ -82,7 +88,21 @@ make  %{?_smp_mflags}  V=1 REVISION="" VERSION=%{version} EXTRA_TAGS="netgo osus
 
 
 %install
-export SOURCE_DATE_EPOCH=1694616261
+export GCC_IGNORE_WERROR=1
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+CLEAR_INTERMEDIATE_CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_FCFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS"
+CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS"
+FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
+FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
+ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
+LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
+export SOURCE_DATE_EPOCH=1696892959
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/containerd
 cp %{_builddir}/containerd-%{version}/LICENSE %{buildroot}/usr/share/package-licenses/containerd/d3b7a70b03b43d4e7205d178100581923a0baad2 || :
@@ -107,6 +127,7 @@ cp %{_builddir}/containerd-%{version}/vendor/github.com/containerd/fifo/LICENSE 
 cp %{_builddir}/containerd-%{version}/vendor/github.com/containerd/go-cni/LICENSE %{buildroot}/usr/share/package-licenses/containerd/7df059597099bb7dcf25d2a9aedfaf4465f72d8d || :
 cp %{_builddir}/containerd-%{version}/vendor/github.com/containerd/go-runc/LICENSE %{buildroot}/usr/share/package-licenses/containerd/7df059597099bb7dcf25d2a9aedfaf4465f72d8d || :
 cp %{_builddir}/containerd-%{version}/vendor/github.com/containerd/imgcrypt/LICENSE %{buildroot}/usr/share/package-licenses/containerd/d3b7a70b03b43d4e7205d178100581923a0baad2 || :
+cp %{_builddir}/containerd-%{version}/vendor/github.com/containerd/log/LICENSE %{buildroot}/usr/share/package-licenses/containerd/d3b7a70b03b43d4e7205d178100581923a0baad2 || :
 cp %{_builddir}/containerd-%{version}/vendor/github.com/containerd/nri/LICENSE %{buildroot}/usr/share/package-licenses/containerd/7df059597099bb7dcf25d2a9aedfaf4465f72d8d || :
 cp %{_builddir}/containerd-%{version}/vendor/github.com/containerd/ttrpc/LICENSE %{buildroot}/usr/share/package-licenses/containerd/7df059597099bb7dcf25d2a9aedfaf4465f72d8d || :
 cp %{_builddir}/containerd-%{version}/vendor/github.com/containerd/typeurl/LICENSE %{buildroot}/usr/share/package-licenses/containerd/d3b7a70b03b43d4e7205d178100581923a0baad2 || :
