@@ -7,7 +7,7 @@
 #
 Name     : containerd
 Version  : 2.0.1
-Release  : 123
+Release  : 124
 URL      : https://github.com/containerd/containerd/archive/v2.0.1/containerd-2.0.1.tar.gz
 Source0  : https://github.com/containerd/containerd/archive/v2.0.1/containerd-2.0.1.tar.gz
 Summary  : An open and reliable container runtime
