@@ -6,10 +6,10 @@
 # autospec commit: fbbd4e3
 #
 Name     : containerd
-Version  : 2.0.2
-Release  : 126
-URL      : https://github.com/containerd/containerd/archive/v2.0.2/containerd-2.0.2.tar.gz
-Source0  : https://github.com/containerd/containerd/archive/v2.0.2/containerd-2.0.2.tar.gz
+Version  : 2.0.4
+Release  : 127
+URL      : https://github.com/containerd/containerd/archive/v2.0.4/containerd-2.0.4.tar.gz
+Source0  : https://github.com/containerd/containerd/archive/v2.0.4/containerd-2.0.4.tar.gz
 Summary  : An open and reliable container runtime
 Group    : Development/Tools
 License  : Apache-2.0 BSD-2-Clause BSD-3-Clause CC-BY-SA-4.0 ISC MIT
@@ -54,10 +54,10 @@ services components for the containerd package.
 
 
 %prep
-%setup -q -n containerd-2.0.2
-cd %{_builddir}/containerd-2.0.2
+%setup -q -n containerd-2.0.4
+cd %{_builddir}/containerd-2.0.4
 pushd ..
-cp -a containerd-2.0.2 buildapx
+cp -a containerd-2.0.4 buildapx
 popd
 
 %build
@@ -68,7 +68,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1740076063
+export SOURCE_DATE_EPOCH=1742399497
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -114,7 +114,7 @@ FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
 FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
 ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
 LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
-export SOURCE_DATE_EPOCH=1740076063
+export SOURCE_DATE_EPOCH=1742399497
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/containerd
 cp %{_builddir}/containerd-%{version}/LICENSE %{buildroot}/usr/share/package-licenses/containerd/d3b7a70b03b43d4e7205d178100581923a0baad2 || :
@@ -209,6 +209,7 @@ cp %{_builddir}/containerd-%{version}/vendor/github.com/opencontainers/runtime-s
 cp %{_builddir}/containerd-%{version}/vendor/github.com/opencontainers/runtime-tools/LICENSE %{buildroot}/usr/share/package-licenses/containerd/552b909d29bd260c886142a969b462c85f976dcd || :
 cp %{_builddir}/containerd-%{version}/vendor/github.com/opencontainers/selinux/LICENSE %{buildroot}/usr/share/package-licenses/containerd/92170cdc034b2ff819323ff670d3b7266c8bffcd || :
 cp %{_builddir}/containerd-%{version}/vendor/github.com/pelletier/go-toml/v2/LICENSE %{buildroot}/usr/share/package-licenses/containerd/0cabec2f601b1c6104cf119f099447309f1cf4cc || :
+cp %{_builddir}/containerd-%{version}/vendor/github.com/petermattis/goid/LICENSE %{buildroot}/usr/share/package-licenses/containerd/c700a8b9312d24bdc57570f7d6a131cf63d89016 || :
 cp %{_builddir}/containerd-%{version}/vendor/github.com/pkg/errors/LICENSE %{buildroot}/usr/share/package-licenses/containerd/9c1bedc0d42f24c24a1bd266f3ce101a4b0579fc || :
 cp %{_builddir}/containerd-%{version}/vendor/github.com/pmezard/go-difflib/LICENSE %{buildroot}/usr/share/package-licenses/containerd/cd3e4d932cee20da681e6b3bee8139cb4f734034 || :
 cp %{_builddir}/containerd-%{version}/vendor/github.com/prometheus/client_golang/LICENSE %{buildroot}/usr/share/package-licenses/containerd/7df059597099bb7dcf25d2a9aedfaf4465f72d8d || :
@@ -217,7 +218,9 @@ cp %{_builddir}/containerd-%{version}/vendor/github.com/prometheus/client_model/
 cp %{_builddir}/containerd-%{version}/vendor/github.com/prometheus/common/LICENSE %{buildroot}/usr/share/package-licenses/containerd/7df059597099bb7dcf25d2a9aedfaf4465f72d8d || :
 cp %{_builddir}/containerd-%{version}/vendor/github.com/prometheus/procfs/LICENSE %{buildroot}/usr/share/package-licenses/containerd/7df059597099bb7dcf25d2a9aedfaf4465f72d8d || :
 cp %{_builddir}/containerd-%{version}/vendor/github.com/russross/blackfriday/v2/LICENSE.txt %{buildroot}/usr/share/package-licenses/containerd/da34754c05d40ff81f91de8c1b85ea6e5503e21d || :
+cp %{_builddir}/containerd-%{version}/vendor/github.com/sasha-s/go-deadlock/LICENSE %{buildroot}/usr/share/package-licenses/containerd/92170cdc034b2ff819323ff670d3b7266c8bffcd || :
 cp %{_builddir}/containerd-%{version}/vendor/github.com/sirupsen/logrus/LICENSE %{buildroot}/usr/share/package-licenses/containerd/a1c7852c717fed2c9a0284ed112ea66013230da6 || :
+cp %{_builddir}/containerd-%{version}/vendor/github.com/smallstep/pkcs7/LICENSE %{buildroot}/usr/share/package-licenses/containerd/f9bbe972432aebdebf3469c89434273ba88ec9c7 || :
 cp %{_builddir}/containerd-%{version}/vendor/github.com/stefanberger/go-pkcs11uri/LICENSE %{buildroot}/usr/share/package-licenses/containerd/c5c8a68f4b80929b3e66f054f37bb9e16078847f || :
 cp %{_builddir}/containerd-%{version}/vendor/github.com/stretchr/testify/LICENSE %{buildroot}/usr/share/package-licenses/containerd/892204393ca075d09c8b1c1d880aba1ae0a2b805 || :
 cp %{_builddir}/containerd-%{version}/vendor/github.com/syndtr/gocapability/LICENSE %{buildroot}/usr/share/package-licenses/containerd/a44bfde22babd7c7e1ccac9ca31f85a09358769f || :
@@ -228,7 +231,6 @@ cp %{_builddir}/containerd-%{version}/vendor/github.com/vishvananda/netns/LICENS
 cp %{_builddir}/containerd-%{version}/vendor/github.com/x448/float16/LICENSE %{buildroot}/usr/share/package-licenses/containerd/ba734e8fdb78a6cab8ec11095218d6d9bac54467 || :
 cp %{_builddir}/containerd-%{version}/vendor/github.com/xrash/smetrics/LICENSE %{buildroot}/usr/share/package-licenses/containerd/1970a503235b08e0bc9f922144970d0de225ab9f || :
 cp %{_builddir}/containerd-%{version}/vendor/go.etcd.io/bbolt/LICENSE %{buildroot}/usr/share/package-licenses/containerd/66c5c002958b1f31f74410b353972d622d74e007 || :
-cp %{_builddir}/containerd-%{version}/vendor/go.mozilla.org/pkcs7/LICENSE %{buildroot}/usr/share/package-licenses/containerd/f9bbe972432aebdebf3469c89434273ba88ec9c7 || :
 cp %{_builddir}/containerd-%{version}/vendor/go.opencensus.io/LICENSE %{buildroot}/usr/share/package-licenses/containerd/1128f8f91104ba9ef98d37eea6523a888dcfa5de || :
 cp %{_builddir}/containerd-%{version}/vendor/go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc/LICENSE %{buildroot}/usr/share/package-licenses/containerd/7df059597099bb7dcf25d2a9aedfaf4465f72d8d || :
 cp %{_builddir}/containerd-%{version}/vendor/go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp/LICENSE %{buildroot}/usr/share/package-licenses/containerd/7df059597099bb7dcf25d2a9aedfaf4465f72d8d || :
