@@ -6,10 +6,10 @@
 # autospec commit: 65cf152
 #
 Name     : containerd
-Version  : 2.1.2
-Release  : 133
-URL      : https://github.com/containerd/containerd/archive/v2.1.2/containerd-2.1.2.tar.gz
-Source0  : https://github.com/containerd/containerd/archive/v2.1.2/containerd-2.1.2.tar.gz
+Version  : 2.1.3
+Release  : 134
+URL      : https://github.com/containerd/containerd/archive/v2.1.3/containerd-2.1.3.tar.gz
+Source0  : https://github.com/containerd/containerd/archive/v2.1.3/containerd-2.1.3.tar.gz
 Summary  : An open and reliable container runtime
 Group    : Development/Tools
 License  : Apache-2.0 BSD-2-Clause BSD-3-Clause CC-BY-SA-4.0 ISC MIT
@@ -54,10 +54,10 @@ services components for the containerd package.
 
 
 %prep
-%setup -q -n containerd-2.1.2
-cd %{_builddir}/containerd-2.1.2
+%setup -q -n containerd-2.1.3
+cd %{_builddir}/containerd-2.1.3
 pushd ..
-cp -a containerd-2.1.2 buildapx
+cp -a containerd-2.1.3 buildapx
 popd
 
 %build
@@ -68,7 +68,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1749770499
+export SOURCE_DATE_EPOCH=1750434264
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -114,7 +114,7 @@ FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
 FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
 ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
 LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
-export SOURCE_DATE_EPOCH=1749770499
+export SOURCE_DATE_EPOCH=1750434264
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/containerd
 cp %{_builddir}/containerd-%{version}/LICENSE %{buildroot}/usr/share/package-licenses/containerd/d3b7a70b03b43d4e7205d178100581923a0baad2 || :
